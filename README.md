@@ -13,9 +13,9 @@ classes = ["class1", "class2", "class3" ...., "class20"]
 # (Optional) Step 1: Collect Data
 This code opens camera stream. Click space bar to take image, and append to labels.csv
 
-Before collecting image, change class in Collect_data/collect.py
+For example, if we would like to collect data for label = 2
 ```
-label = 2
+python -m Data.collect -l 2 
 ```
 code will name the images label_#perclass.jpg
 
