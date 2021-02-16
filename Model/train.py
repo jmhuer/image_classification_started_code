@@ -1,8 +1,7 @@
 import torchvision
-
 from .models import CNNClassifier, LastLayer_Alexnet, save_model, load_weights
 import torch
-import torch.utils.tensorboard as tb
+# import torch.utils.tensorboard as tb
 import numpy as np
 from .utils import load_data, accuracy
 from .logging import launchTensorBoard, train_log_action, val_log_action
@@ -28,8 +27,8 @@ def train(args):
     if continue training args we load weights
     if cnt training then load weights
     '''
-    # model = CNNClassifier()
-    model = LastLayer_Alexnet()
+    model = CNNClassifier()
+    # model = LastLayer_Alexnet()
     if args.continue_training: load_weights(model, args.continue_training)
     model = model.to(device)
     '''
@@ -48,7 +47,7 @@ def train(args):
     return dictionary with train and valid items. For example data['train']
     assumes dataset is a folder with train and val subfolders
     '''
-    data = load_data('Data/dataset', transforms=tensor_transform, num_workers=1)
+    data = load_data('Collect_data/dataset', transforms=tensor_transform, num_workers=1)
     '''
     train
     '''
@@ -56,11 +55,14 @@ def train(args):
     for epoch in range(args.num_epoch):
         model.train()
         for img, label in data['train']:
+
             # torchvision.utils.save_image(img[0], "test1.jpg")
 
             label = label.to(device)
             img = img.to(device)
             logit = model(img)
+
+
             loss_train = loss(logit, label)
             '''
             add image to logger every 10 batches

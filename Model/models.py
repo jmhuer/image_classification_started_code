@@ -3,8 +3,7 @@ import torchvision
 from .utils import overrides
 
 ##all models use same classes
-classes = ['air_conditioner', 'car_horn', 'children_playing', 'dog_bark', 'drilling', 'engine_idling', 'gun_shot',
-           'jackhammer', 'siren', 'street_music']
+classes = ['open','closed','closed']
 
 
 class CNNClassifier(torch.nn.Module):
@@ -32,12 +31,12 @@ class CNNClassifier(torch.nn.Module):
 
 
 class LastLayer_Alexnet(torch.nn.Module):
-    def __init__(self, n_classes=len(classes)):
+    def __init__(self, n_classes=3):
         super().__init__()
         self.classes = classes
         self.network = torchvision.models.alexnet(pretrained=True)  ##first time it will download weights
-        self.new_layer = torch.nn.Linear(4096, n_classes)
-        self.network.classifier[6] = self.new_layer
+        # self.new_layer = torch.nn.Linear(4096, n_classes)
+        # self.network.classifier[6] = self.new_layer
 
     def forward(self, x):
         return self.network(x)
