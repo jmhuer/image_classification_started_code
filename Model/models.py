@@ -35,8 +35,8 @@ class LastLayer_Alexnet(torch.nn.Module):
         super().__init__()
         self.classes = classes
         self.network = torchvision.models.alexnet(pretrained=True)  ##first time it will download weights
-        # self.new_layer = torch.nn.Linear(4096, n_classes)
-        # self.network.classifier[6] = self.new_layer
+        self.new_layer = torch.nn.Linear(4096, n_classes)
+        self.network.classifier[6] = self.new_layer
 
     def forward(self, x):
         return self.network(x)
